@@ -2,30 +2,29 @@ package main
 
 import "fmt"
 
-type CheckingAccount struct {
-	holder        string
-	numberAgency  int
-	numberAccount int
-	ballance      float64
+type ContaCorrente struct {
+	titular       string
+	numeroAgencia int
+	numeroConta   int
+	saldo         float64
+}
+
+func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
+	podeSacar := valorDoSaque > 0 && valorDoSaque <= c.saldo
+	if podeSacar {
+		c.saldo -= valorDoSaque
+		return "Saque realizado com sucesso!"
+	}
+	return "Saldo insuficiente!"
 }
 
 func main() {
-	LuanAccount := CheckingAccount{
-		holder:        "Luan",
-		numberAgency:  589,
-		numberAccount: 123456,
-		ballance:      125.5,
-	}
+	contaDaEstefane := ContaCorrente{}
+	contaDaEstefane.titular = "Estefâne"
+	contaDaEstefane.saldo = 500
 
-	BrunaAccount := CheckingAccount{"Bruna", 222, 111222, 200}
+	fmt.Println(contaDaEstefane.saldo)
 
-	fmt.Println(LuanAccount)
-	fmt.Println(BrunaAccount)
-
-	var CrisAccount *CheckingAccount
-	CrisAccount = new(CheckingAccount)
-	CrisAccount.holder = "Cris"
-	CrisAccount.ballance = 500
-
-	fmt.Println(*CrisAccount)
+	fmt.Println(contaDaEstefane.Sacar(-100))
+	fmt.Println(contaDaEstefane.saldo)
 }
