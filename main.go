@@ -21,4 +21,11 @@ func main() {
 
 	fmt.Println(LuanAccount)
 	fmt.Println(BrunaAccount)
+
+	var CrisAccount *CheckingAccount
+	CrisAccount = new(CheckingAccount)
+	CrisAccount.holder = "Cris"
+	CrisAccount.ballance = 500
+
+	fmt.Println(*CrisAccount)
 }
