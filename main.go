@@ -3,13 +3,12 @@ package main
 import (
 	"fmt"
 
-	"./clientes"
 	"./contas"
 )
 
 func main() {
-	clienteBruno := clientes.Titular{"Bruno", "123.111.123.12", "Desenvolvedor GO"}
-	contaDoBruno := contas.ContaCorrente{clienteBruno, 123, 123456, 100}
+	contaExemplo := contas.ContaCorrente{}
+	contaExemplo.Depositar(100)
 
-	fmt.Println(contaDoBruno)
+	fmt.Println(contaExemplo.GetSaldo())
 }
