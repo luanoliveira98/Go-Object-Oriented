@@ -1,14 +1,16 @@
 package contas
 
-// ContaCorrente ...
+import "../clientes"
+
+// ContaCorrente de um titular
 type ContaCorrente struct {
-	Titular       string
+	Titular       clientes.Titular
 	NumeroAgencia int
 	NumeroConta   int
 	Saldo         float64
 }
 
-// Sacar ...
+// Sacar é o método de saque de uma conta corrente
 func (c *ContaCorrente) Sacar(valorDoSaque float64) bool {
 	if valorDoSaque > 0 && valorDoSaque <= c.Saldo {
 		c.Saldo -= valorDoSaque
@@ -17,7 +19,7 @@ func (c *ContaCorrente) Sacar(valorDoSaque float64) bool {
 	return false
 }
 
-// Depositar ...
+// Depositar é o método de depósito de uma conta corrente
 func (c *ContaCorrente) Depositar(valorDoDeposito float64) bool {
 	if valorDoDeposito > 0 {
 		c.Saldo += valorDoDeposito
@@ -26,7 +28,7 @@ func (c *ContaCorrente) Depositar(valorDoDeposito float64) bool {
 	return false
 }
 
-// Transferir ...
+// Transferir é o método de transferência de uma conta corrente
 func (c *ContaCorrente) Transferir(valorDaTransferencia float64, contaDestino *ContaCorrente) bool {
 	if c.Sacar(valorDaTransferencia) {
 		contaDestino.Depositar(valorDaTransferencia)
