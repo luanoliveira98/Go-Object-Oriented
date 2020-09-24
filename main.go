@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// ContaCorrente ...
 type ContaCorrente struct {
 	titular       string
 	numeroAgencia int
@@ -9,26 +10,28 @@ type ContaCorrente struct {
 	saldo         float64
 }
 
-func (c *ContaCorrente) Sacar(valorDoSaque float64) string {
+// Sacar ...
+func (c *ContaCorrente) Sacar(valorDoSaque float64) bool {
 	podeSacar := valorDoSaque > 0 && valorDoSaque <= c.saldo
 	if podeSacar {
 		c.saldo -= valorDoSaque
-		return "Saque realizado com sucesso!"
+		return true
 	}
-	return "Saldo insuficiente!"
+	return false
 }
 
-func (c *ContaCorrente) Depositar(valorDoDeposito float64) (string, float64) {
+// Depositar ...
+func (c *ContaCorrente) Depositar(valorDoDeposito float64) bool {
 	if valorDoDeposito > 0 {
 		c.saldo += valorDoDeposito
-		return "Deposito realizado com sucesso!", c.saldo
+		return true
 	}
-	return "Valor do deposito menor que zero!", c.saldo
+	return false
 }
 
+// Transferir ...
 func (c *ContaCorrente) Transferir(valorDaTransferencia float64, contaDestino *ContaCorrente) bool {
-	if valorDaTransferencia < c.saldo && valorDaTransferencia > 0 {
-		c.saldo -= valorDaTransferencia
+	if c.Sacar(valorDaTransferencia) {
 		contaDestino.Depositar(valorDaTransferencia)
 		return true
 	}
@@ -39,7 +42,7 @@ func main() {
 	contaDaEstefane := ContaCorrente{titular: "Estefâne", saldo: 300}
 	contaDoLuan := ContaCorrente{titular: "Luan", saldo: 100}
 
-	status := contaDaEstefane.Transferir(-200, &contaDoLuan)
+	status := contaDaEstefane.Transferir(500, &contaDoLuan)
 
 	fmt.Println(status)
 	fmt.Println(contaDaEstefane)
