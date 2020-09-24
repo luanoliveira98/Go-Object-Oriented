@@ -4,10 +4,9 @@ import "../clientes"
 
 // ContaCorrente de um titular
 type ContaCorrente struct {
-	Titular       clientes.Titular
-	NumeroAgencia int
-	NumeroConta   int
-	saldo         float64
+	Titular                    clientes.Titular
+	NumeroAgencia, NumeroConta int
+	saldo                      float64
 }
 
 // Sacar é o método de saque de uma conta corrente
